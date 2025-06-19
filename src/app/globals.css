@@ -1,8 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #e3fcec;
+  --foreground: #222e2b;
+  --primary: #38b2ac;
+  --secondary: #81e6d9;
+  --accent: #2c7a7b;
+  --nav-bg: #ffffff;
+  --nav-border: #81e6d9;
+  --font-short-stack: "Short Stack", cursive;
+}
+
+body {
+  font-family: var(--font-short-stack), Arial, Helvetica, sans-serif;
+  background: var(--background);
+  color: var(--foreground);
+  margin: 0;
+  padding: 0;
 }
 
 @theme inline {
@@ -10,6 +24,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-stack: var(--font-short-stack);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,8 +34,31 @@
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Navigation Bar */
+.stanich-nav {
+  background: var(--nav-bg);
+  border-bottom: 4px solid var(--nav-border);
+  box-shadow: 0 2px 8px rgba(56, 178, 172, 0.08);
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Navigation Title */
+.stanich-title {
+  font-family: var(--font-short-stack), cursive;
+  color: var(--primary);
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 0 var(--secondary);
+  margin: 0;
+}
+
+/* Navigation Link */
+.stanich-link {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.stanich-link:hover {
+  color: var(--accent);
 }
