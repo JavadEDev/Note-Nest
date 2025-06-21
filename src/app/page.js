@@ -1,22 +1,9 @@
-import Link from "next/link";
+import MainPageList from './components/MainPageList'
 
 export default function Home() {
   return (
     <div>
-      <ul>
-        <li>
-          <Link href="/my">My Notes</Link>
-        </li>
-        <li>
-          <Link href="/write">Write a Notes</Link>
-        </li>
-        <li>
-          <Link href="/teacher">Secret Teacher Feed</Link>
-        </li>
-        <li>
-          <Link href="/whoe-am-i">Who Am I?!</Link>
-        </li>
-      </ul>
+      <MainPageList />
     </div>
-  );
+  )
 }
