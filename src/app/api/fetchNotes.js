@@ -13,4 +13,4 @@ export default async function fetchNotes() {
 
     const [from, to] = await Promise.all([fromPromise, toPromise]);
     return { from, to }
-} 
+}  
