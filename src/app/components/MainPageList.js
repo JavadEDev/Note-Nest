@@ -38,7 +38,7 @@ export default function MainPageList() {
         </Link>
       </li>
       <li className="mainpage-list-item">
-        <Link href="/whoe-am-i" className="mainpage-link">
+        <Link href="/who-am-i" className="mainpage-link">
           Who Am I?!
         </Link>
       </li>
