@@ -11,19 +11,11 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.config({
-    extends: ["next", "next/core-web-vitals", "plugin:prettier/recommended"],
+    extends: ["next/core-web-vitals", "next/typescript", "prettier"],
     plugins: ["prettier"],
     rules: {
-      "prettier/prettier": [
-        "error",
-        {
-          plugins: ["prettier-plugin-tailwindcss"],
-        },
-        {
-          usePrettierrc: false,
-        },
-      ],
-      "react/react-in-jsx-scope": "off",
+      //
+      "prettier/prettier": "error",
     },
   }),
 ];
