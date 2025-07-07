@@ -1,6 +1,7 @@
-import { AsyncDatabase } from 'promised-sqlite3'
+import { neon } from '@neondatabase/serverless';
+
+const sql = neon(process.env.DATABASE_URL);
 
 export default async function getUsers() {
-  const db = await AsyncDatabase.open("./notes.db")
-  return db.all("SELECT * FROM users")
+  return await sql`SELECT id, name, email FROM users ORDER BY name`;
 }

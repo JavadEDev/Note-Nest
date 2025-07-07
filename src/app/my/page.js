@@ -1,4 +1,3 @@
-import { AsyncDatabase } from 'promised-sqlite3'
 import AnimatedNotesPage from '../components/AnimatedNotesPage'
 import { Suspense } from 'react'
 import Loading from './loading'

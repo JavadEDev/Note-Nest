@@ -1,16 +1,31 @@
-import { AsyncDatabase } from 'promised-sqlite3'
+import { neon } from '@neondatabase/serverless';
+import { auth } from '../../auth';
+import { redirect } from 'next/navigation';
+
+const sql = neon(process.env.DATABASE_URL);
 
 export default async function fetchNotes() {
-    const db = await AsyncDatabase.open('./notes.db')
-    const fromPromise = db.all(
-        'SELECT n.id as id, n.note as note, f.name as from_user, t.name as to_user FROM notes n JOIN users f ON f.id = n.from_user JOIN users t ON t.id = n.to_user WHERE from_user = ?',
-        ['1'],
-    )
-    const toPromise = db.all(
-        'SELECT n.id as id, n.note as note, f.name as from_user, t.name as to_user FROM notes n JOIN users f ON f.id = n.from_user JOIN users t ON t.id = n.to_user WHERE to_user = ?',
-        ['1'],
-    )
-
+    const session = await auth();
+    if (!session?.user?.id) {
+        redirect("/auth/signin")
+    }
+    const userId = session.user.id;
+    const fromPromise = sql`
+        SELECT n.id, n.note, f.name as from_user, t.name as to_user
+        FROM notes n
+        LEFT JOIN users f ON f.id = n.from_user
+        LEFT JOIN users t ON t.id = n.to_user
+        WHERE n.from_user = ${userId}
+        ORDER BY n.created_at DESC
+    `;
+    const toPromise = sql`
+        SELECT n.id, n.note, f.name as from_user, t.name as to_user
+        FROM notes n
+        LEFT JOIN users f ON f.id = n.from_user
+        LEFT JOIN users t ON t.id = n.to_user
+        WHERE n.to_user = ${userId}
+        ORDER BY n.created_at DESC
+    `;
     const [from, to] = await Promise.all([fromPromise, toPromise]);
-    return { from, to }
+    return { from, to };
 }  

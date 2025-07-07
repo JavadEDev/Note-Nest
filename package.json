@@ -12,14 +12,17 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@auth/core": "^0.40.0",
+    "@auth/neon-adapter": "^1.10.0",
+    "@neondatabase/serverless": "^1.0.1",
     "doodle.css": "^0.0.2",
     "framer-motion": "^12.18.1",
     "gsap": "^3.13.0",
     "next": "15.3.4",
-    "promised-sqlite3": "^2.1.0",
+    "next-auth": "^5.0.0-beta.29",
+    "pg": "^8.16.3",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "sqlite3": "^5.1.7"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

@@ -37,11 +37,6 @@ export default function MainPageList() {
           Secret Teacher Feed
         </Link>
       </li>
-      <li className="mainpage-list-item">
-        <Link href="/who-am-i" className="mainpage-link">
-          Who Am I?!
-        </Link>
-      </li>
     </ul>
   )
 }

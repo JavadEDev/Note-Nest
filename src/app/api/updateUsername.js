@@ -1,6 +1,8 @@
 "use server"
 import { redirect } from 'next/navigation'
-import { AsyncDatabase } from 'promised-sqlite3'
+import { neon } from '@neondatabase/serverless';
+
+const sql = neon(process.env.DATABASE_URL);
 
 export default async function updateUsername(formData) {
     console.log("updateUsername called", formData)
@@ -9,7 +11,6 @@ export default async function updateUsername(formData) {
     if (!username || !id) {
         throw new Error("All fields are required.")
     }
-    const db = await AsyncDatabase.open("./notes.db")
-    await db.run("UPDATE users SET name = ? WHERE id = ?", [username, id])
+    await sql`UPDATE users SET name = ${username} WHERE id = ${id}`;
     redirect("/")
 }

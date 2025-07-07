@@ -1,7 +1,9 @@
 "use server"
-import { AsyncDatabase } from 'promised-sqlite3'
+import { neon } from '@neondatabase/serverless';
+
+const sql = neon(process.env.DATABASE_URL);
 
 export default async function getWhoAmI() {
-    const db = await AsyncDatabase.open("./notes.db")
-    return db.get("SELECT * FROM users WHERE id= ?", ["1"])
+    const result = await sql`SELECT * FROM users WHERE id = 1`;
+    return result[0];
 }

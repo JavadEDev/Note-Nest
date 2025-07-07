@@ -2,6 +2,8 @@ import { Geist, Geist_Mono, Short_Stack } from 'next/font/google'
 import Link from 'next/link'
 import './globals.css'
 import AnimatedContainer from './components/AnimatedContainer'
+import AuthProvider from './components/AuthProvider'
+import AuthButton from './components/AuthButton'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -33,14 +35,19 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${shortStack.variable} antialiased`}
       >
-        <nav className="navigation">
-          <h1 className="navigation-title">
-            <Link href="/" className="navigation-link">
-              NoteNest
-            </Link>
-          </h1>
-        </nav>
-        <AnimatedContainer path={path}>{children}</AnimatedContainer>
+        <AuthProvider>
+          <nav className="navigation">
+            <h1 className="navigation-title">
+              <Link href="/" className="navigation-link">
+                NoteNest
+              </Link>
+            </h1>
+            <div className="navigation-auth">
+              <AuthButton />
+            </div>
+          </nav>
+          <AnimatedContainer path={path}>{children}</AnimatedContainer>
+        </AuthProvider>
       </body>
     </html>
   )

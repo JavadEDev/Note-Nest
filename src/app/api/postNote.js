@@ -1,20 +1,23 @@
 "use server"
 
-import { AsyncDatabase } from "promised-sqlite3"
+import { neon } from '@neondatabase/serverless';
+import { auth } from "../../auth"
+
+const sql = neon(process.env.DATABASE_URL);
 
 export default async function postNote(formData) {
-    console.log("postNote called", formData)
-    const from = formData.get("from_user")
-    const to = formData.get("to_user")
-    const note = formData.get("note")
-
-    if (!from || !to || !note) {
-        throw new Error("All fields (from, to, note) are required.")
+    const session = await auth();
+    if (!session?.user?.id) {
+        throw new Error("Not authenticated");
     }
-
-    const db = await AsyncDatabase.open("./notes.db")
-    await db.run(
-        "INSERT INTO notes (from_user, to_user, note) VALUES (?, ?,?)",
-        [from, to, note]
-    )
+    const fromUser = session.user.id;
+    const toUser = formData.get("to_user"); // should be a UUID
+    const note = formData.get("note");
+    if (!toUser || !note) {
+        throw new Error("To user and note are required.");
+    }
+    await sql`
+        INSERT INTO notes (from_user, to_user, note)
+        VALUES (${fromUser}, ${toUser}, ${note})
+    `;
 }

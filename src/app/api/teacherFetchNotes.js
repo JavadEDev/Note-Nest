@@ -1,18 +1,36 @@
 "use server"
-import { AsyncDatabase } from 'promised-sqlite3'
+import { neon } from '@neondatabase/serverless';
+import { auth } from '../../auth';
+import { redirect } from 'next/navigation';
+
+const sql = neon(process.env.DATABASE_URL);
 
 export default async function teacherFetchNotes(since) {
-    const db = await AsyncDatabase.open('./notes.db')
-    let rows
-    if (since) {
-        rows = await db.all(
-            "SELECT n.id as id, n.note as note, f.name as from_user, t.name as to_user FROM notes n JOIN users f ON f.id = n.from_user JOIN users t ON t.id = n.to_user WHERE n.id > ? LIMIT 10",
-            [since]
-        );
-    } else {
-        rows = await db.all(
-            "SELECT n.id as id, n.note as note, f.name as from_user, t.name as to_user FROM notes n JOIN users f ON f.id = n.from_user JOIN users t ON t.id = n.to_user LIMIT 10"
-        );
+    const session = await auth();
+    if (!session?.user?.id) {
+        redirect("/auth/signin")
     }
-    return rows
+    if (session?.user?.role !== "teacher") {
+        redirect("/unauthorized");
+    }
+    if (since) {
+        return await sql`
+            SELECT n.id, n.note, f.name as from_user, t.name as to_user
+            FROM notes n
+            LEFT JOIN users f ON f.id = n.from_user
+            LEFT JOIN users t ON t.id = n.to_user
+            WHERE n.id > ${since}
+            ORDER BY n.created_at DESC
+            LIMIT 10
+        `;
+    } else {
+        return await sql`
+            SELECT n.id, n.note, f.name as from_user, t.name as to_user
+            FROM notes n
+            LEFT JOIN users f ON f.id = n.from_user
+            LEFT JOIN users t ON t.id = n.to_user
+            ORDER BY n.created_at DESC
+            LIMIT 10
+        `;
+    }
 }
