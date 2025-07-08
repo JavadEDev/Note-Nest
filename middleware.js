@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server';
 import { auth } from './src/auth';
 
 export const middleware = auth((req) => {
@@ -24,6 +25,8 @@ export const middleware = auth((req) => {
             return Response.redirect(new URL("/unauthorized", req.url));
         }
     }
+
+    return NextResponse.rewrite(new URL('/404', req.url))
 
 });
 

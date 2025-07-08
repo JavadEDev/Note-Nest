@@ -1352,6 +1352,79 @@ body {
   color: var(--accent);
 }
 
+/* Fantasy NotFound Page Styles */
+.fantasy-bg {
+  font-family: var(--font-short-stack), cursive;
+}
+
+.notfound-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.notfound-card {
+  background: var(--bg-white);
+  border-radius: 2rem;
+  box-shadow: 0 8px 32px rgba(44, 122, 123, 0.15);
+  padding: 3rem 2.5rem;
+  text-align: center;
+  max-width: 420px;
+  width: 100%;
+  border: 2px solid var(--secondary);
+}
+
+.notfound-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.notfound-title {
+  font-size: 2.2rem;
+  color: #7f5af0;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  font-family: var(--font-short-stack), cursive;
+}
+
+.notfound-message {
+  color: var(--accent);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.notfound-highlight {
+  color: #2cb67d;
+  font-weight: bold;
+}
+
+.notfound-home-btn {
+  display: inline-block;
+  padding: 0.9rem 2rem;
+  background: linear-gradient(90deg, #7f5af0, #2cb67d);
+  color: white;
+  border-radius: 1rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(44, 122, 123, 0.08);
+  transition:
+    background 0.2s,
+    transform 0.2s;
+  border: none;
+  margin-top: 0.5rem;
+}
+
+.notfound-home-btn:hover,
+.notfound-home-btn:focus {
+  background: linear-gradient(90deg, #2cb67d, #7f5af0);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 24px rgba(44, 122, 123, 0.15);
+}
+
 /* keyframes */
 
 @keyframes skeleton-loading {
@@ -1421,5 +1494,22 @@ body {
   }
   .whoami-title {
     font-size: 1.3rem;
+  }
+  .notfound-card {
+    padding: 1.5rem 0.7rem;
+    max-width: 98vw;
+  }
+  .notfound-title {
+    font-size: 1.3rem;
+  }
+  .notfound-icon {
+    font-size: 2.5rem;
+  }
+  .notfound-message {
+    font-size: 0.95rem;
+  }
+  .notfound-home-btn {
+    font-size: 1rem;
+    padding: 0.7rem 1.2rem;
   }
 }
