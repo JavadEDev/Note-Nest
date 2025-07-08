@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import updateUserRole from '../api/updateUserRole';
+import { ToastEmitter } from '../components/ToastProvider'
 
 export default function ProfileForm({ user }) {
     const { data: session, update } = useSession();
@@ -21,11 +22,13 @@ export default function ProfileForm({ user }) {
 
             await updateUserRole(formData);
             setMessage('Role updated successfully!');
+            ToastEmitter.success('Role updated successfully!')
 
             // Update the session to reflect the new role
             await update();
         } catch (error) {
             setMessage('Error updating role: ' + error.message);
+            ToastEmitter.error('Error updating role: ' + error.message)
         } finally {
             setIsLoading(false);
         }

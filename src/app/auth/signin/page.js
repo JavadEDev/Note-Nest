@@ -4,16 +4,13 @@ import { signIn, getSession } from 'next-auth/react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { ToastEmitter } from '../../components/ToastProvider'
 
 export default function SignInPage() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
-    const [showCredentialsForm, setShowCredentialsForm] = useState(false);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
     const callbackUrl = searchParams.get('callbackUrl') || '/';
     const errorParam = searchParams.get('error');
 
@@ -50,18 +47,22 @@ export default function SignInPage() {
 
             // For OAuth providers, redirect to the returned URL
             if (["google", "github"].includes(provider) && result?.url) {
+                ToastEmitter.success('Redirecting to provider...')
                 window.location.href = result.url;
                 return;
             }
 
             if (result?.error) {
                 setError(getErrorMessage(result.error));
+                ToastEmitter.error(getErrorMessage(result.error))
             } else if (result?.ok) {
+                ToastEmitter.success('Signed in successfully!')
                 router.push(callbackUrl);
             }
         } catch (err) {
             console.error('SignIn error:', err);
             setError('An unexpected error occurred.');
+            ToastEmitter.error('An unexpected error occurred.')
         } finally {
             setIsLoading(false);
         }
@@ -84,12 +85,15 @@ export default function SignInPage() {
 
             if (result?.error) {
                 setError(getErrorMessage(result.error));
+                ToastEmitter.error(getErrorMessage(result.error))
             } else if (result?.ok) {
+                ToastEmitter.success('Signed in successfully!')
                 router.push(callbackUrl);
             }
         } catch (err) {
             console.error('Credentials signIn error:', err);
             setError('An unexpected error occurred.');
+            ToastEmitter.error('An unexpected error occurred.')
         } finally {
             setIsLoading(false);
         }

@@ -4,6 +4,7 @@ import './globals.css'
 import AnimatedContainer from './components/AnimatedContainer'
 import AuthProvider from './components/AuthProvider'
 import AuthButton from './components/AuthButton'
+import ToastProvider from './components/ToastProvider'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -47,6 +48,7 @@ export default function RootLayout({ children }) {
             </div>
           </nav>
           <AnimatedContainer path={path}>{children}</AnimatedContainer>
+          <ToastProvider />
         </AuthProvider>
       </body>
     </html>
