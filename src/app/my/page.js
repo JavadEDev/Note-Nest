@@ -1,4 +1,5 @@
 import AnimatedNotesPage from '../components/AnimatedNotesPage'
+import GSAPStaggerFadeIn from '../components/GSAPStaggerFadeIn'
 import { Suspense } from 'react'
 import Loading from './loading'
 import fetchNotes from '../api/fetchNotes'
@@ -9,7 +10,9 @@ export default async function MyNotes() {
     return (
         <section>
             <Suspense fallback={<Loading />}>
-                <AnimatedNotesPage notes={notes} />
+                <GSAPStaggerFadeIn>
+                    <AnimatedNotesPage notes={notes} />
+                </GSAPStaggerFadeIn>
             </Suspense>
         </section>
     )
