@@ -100,9 +100,9 @@ NoteNest is a fast, minimalist note-taking app designed for students and teacher
 
 4. Run the development server:
 
-   ```bash
-   npm run dev
-   ```
+```bash
+npm run dev
+```
 
 5. Visit [http://localhost:3000](http://localhost:3000)
 
