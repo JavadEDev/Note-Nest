@@ -1,138 +1,153 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NoteNest
+
+NoteNest is a fast, minimalist note-taking app designed for students and teachers. It features a clean UI, role-based access, and real-time note management. Built with Next.js, Neon/Postgres, and NextAuth for authentication, it supports Google and GitHub sign-in.
+
+---
+
+## Features
+
+- **User Authentication**: Sign in with Google, GitHub using NextAuth.
+- **Role-based Access**: Users can be students or teachers. Teachers have access to special admin features.
+- **Send & Receive Notes**: Users can write notes to others, view notes sent to them, and see their own sent notes.
+- **Teacher Feed**: Teachers can view, edit, and delete all notes in the system.
+- **Profile Management**: Users can update their role and see statistics about their note activity.
+- **Dark Mode**: Toggle between light and dark themes.
+- **Animated UI**: Smooth transitions and feedback using Framer Motion and GSAP.
+- **Toast Notifications**: Real-time feedback for actions (success, error, etc.).
+
+---
+
+## Project Structure & Sections
+
+### 1. **Authentication**
+
+- **`src/auth.js`**: Configures NextAuth with NeonAdapter, providers, and custom callbacks for session and JWT. Handles user roles and database checks.
+- **`src/app/api/auth/[...nextauth]/route.js`**: API route for NextAuth, with debug logging for requests.
+- **`src/app/auth/signin/page.js`**: Custom sign-in page with provider buttons and error handling.
+- **`src/app/auth/error/page.js`**: Custom error page for authentication issues.
+
+### 2. **API Endpoints**
+
+- **`src/app/api/`**: Contains server actions for:
+  - `fetchNotes.js`: Fetches notes for the current user.
+  - `postNote.js`: Allows users to send notes.
+  - `deleteNote.js`, `editNote.js`: Teacher-only endpoints for managing notes.
+  - `teacherFetchNotes.js`: Fetches all notes for teachers.
+  - `getUsers.js`, `getWhoAmI.js`: Fetches user data.
+  - `updateUsername.js`, `updateUserRole.js`: Update user profile info.
+  - `405.js`: Returns a 405 error for unsupported methods.
+
+### 3. **Pages**
+
+- **`src/app/page.js`**: Home page with navigation links.
+- **`src/app/my/page.js`**: "My Notes" page showing notes sent and received by the user.
+- **`src/app/write/page.js`**: Write a new note to another user.
+- **`src/app/teacher/page.js`**: Teacher's admin feed for all notes (edit/delete enabled).
+- **`src/app/profile/page.js`**: User profile page with stats and role update form.
+- **`src/app/unauthorized/page.js` & `unauthorized.js`**: Shown when a user tries to access restricted areas.
+- **`src/app/not-found.js`**: Custom 404 page with fantasy theme.
+
+### 4. **Components**
+
+- **`AnimatedContainer.js`**: Page transition animations.
+- **`AnimatedNotesPage.js`**: Renders notes in a grid with animations.
+- **`AuthButton.js`**: Shows sign-in/sign-out/profile dropdown in the navbar.
+- **`AuthProvider.js`**: Wraps the app with NextAuth's SessionProvider.
+- **`DarkModeToggle.js`**: Button to toggle dark mode.
+- **`FantasyMotionCard.js`**: Animated card for fantasy-themed pages.
+- **`GSAPStaggerFadeIn.js`**: GSAP-based staggered fade-in for lists.
+- **`LoadingMyNotesSkeleton.js`**: Skeleton loader for notes page.
+- **`MainPageList.js`**: Animated list of main navigation links.
+- **`TeacherClientPage.js`**: Teacher's admin interface for notes.
+- **`ToastProvider.js`**: Toast notification system using react-toastify.
+- **`WriteNoteForm.js`**: Form to send a note to another user.
+- **`whoAmIClientPage.js`**: Form to update username (demo/testing).
+- **Profile Components**:
+  - **`ProfileForm.js`**: Update user role.
+  - **`UserStats.js`**: Show user note statistics.
+
+### 5. **Styling**
+
+- **`globals.css`**: Main CSS file, includes custom properties, dark mode, and responsive styles. Uses Tailwind for utility classes.
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js 18+
+- Neon/Postgres database (or compatible Postgres)
+- Environment variables for NextAuth and database connection
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+1. Clone the repo:
+   ```bash
+   git clone <repo-url>
+   cd note-app
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Set up your `.env` file with:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   - `DATABASE_URL` (Neon/Postgres connection string)
+   - `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` (optional, for Google OAuth)
+   - `GITHUB_ID` and `GITHUB_SECRET` (optional, for GitHub OAuth)
+   - `NEXTAUTH_SECRET` (for session encryption)
 
-## Learn More
+4. Run the development server:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   npm run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. Visit [http://localhost:3000](http://localhost:3000)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Usage
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **Sign In**: Use Google, GitHub, or credentials.
+- **Write Notes**: Go to "Write a Notes" to send a note to another user.
+- **View Notes**: "My Notes" shows notes sent and received.
+- **Teacher Feed**: If your role is teacher, access the "Secret Teacher Feed" for admin controls.
+- **Profile**: Update your role and view stats.
+- **Dark Mode**: Toggle with the sun/moon button in the navbar.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
 
-# Environment Variables for Auth.js v5 + Neon
+## Tech Stack
 
-Add the following to your `.env.local`:
+- **Next.js** (App Router)
+- **NextAuth.js** (Authentication)
+- **Neon/Postgres** (Database)
+- **Framer Motion & GSAP** (Animations)
+- **React Toastify** (Notifications)
+- **Tailwind CSS** (Styling)
 
-```
-# Neon Postgres
-DATABASE_URL=postgresql://username:password@ep-something.region.aws.neon.tech/database_name?sslmode=require
-NEXTAUTH_SECRET=your-random-secret
-NEXTAUTH_URL=http://localhost:3000
+---
 
-# Google OAuth
-GOOGLE_CLIENT_ID=your-google-client-id
-GOOGLE_CLIENT_SECRET=your-google-client-secret
+## License
 
-# GitHub OAuth
-GITHUB_ID=your-github-client-id
-GITHUB_SECRET=your-github-client-secret
+MIT
 
-# LinkedIn OAuth
-LINKEDIN_CLIENT_ID=your-linkedin-client-id
-LINKEDIN_CLIENT_SECRET=your-linkedin-client-secret
+---
 
-# Email Provider
-EMAIL_SERVER=smtp://user:pass@smtp.mail.com:587
-EMAIL_FROM=your@email.com
-```
+## Credits
 
-- For Google, GitHub, and LinkedIn, create OAuth apps in their respective developer consoles and set the callback URLs to `http://localhost:3000/api/auth/callback/{provider}`.
-- For Email, use a real SMTP server for production.
+- [Next.js](https://nextjs.org/)
+- [NextAuth.js](https://next-auth.js.org/)
+- [Neon](https://neon.tech/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [GSAP](https://greensock.com/gsap/)
+- [React Toastify](https://fkhadra.github.io/react-toastify/)
+- [Tailwind CSS](https://tailwindcss.com/)
 
-# Database Schema for Auth.js v5 + Neon
+---
 
-Run this SQL in your Neon dashboard or psql to set up the required tables:
+## Contact
 
-```sql
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
-
--- Users table (managed by Auth.js)
-CREATE TABLE IF NOT EXISTS users (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  name VARCHAR(255),
-  email VARCHAR(255) UNIQUE,
-  email_verified TIMESTAMP,
-  image TEXT,
-  role VARCHAR(50) DEFAULT 'student' CHECK (role IN ('student', 'teacher'))
-);
-
--- Accounts table (managed by Auth.js)
-CREATE TABLE IF NOT EXISTS accounts (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  type VARCHAR(255),
-  provider VARCHAR(255),
-  provider_account_id VARCHAR(255),
-  refresh_token TEXT,
-  access_token TEXT,
-  expires_at BIGINT,
-  token_type VARCHAR(255),
-  scope TEXT,
-  id_token TEXT,
-  session_state TEXT
-);
-
--- Sessions table (managed by Auth.js)
-CREATE TABLE IF NOT EXISTS sessions (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  session_token VARCHAR(255) UNIQUE,
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  expires TIMESTAMP
-);
-
--- Verification tokens (for email sign-in)
-CREATE TABLE IF NOT EXISTS verification_tokens (
-  identifier VARCHAR(255),
-  token VARCHAR(255),
-  expires TIMESTAMP
-);
-
--- Notes table (app-specific)
-CREATE TABLE IF NOT EXISTS notes (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  from_user UUID REFERENCES users(id) ON DELETE SET NULL,
-  to_user UUID REFERENCES users(id) ON DELETE SET NULL,
-  note TEXT NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Create indexes for better performance
-CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
-CREATE INDEX IF NOT EXISTS idx_users_role ON users(role);
-CREATE INDEX IF NOT EXISTS idx_accounts_user_id ON accounts(user_id);
-CREATE INDEX IF NOT EXISTS idx_sessions_user_id ON sessions(user_id);
-CREATE INDEX IF NOT EXISTS idx_notes_from_user ON notes(from_user);
-CREATE INDEX IF NOT EXISTS idx_notes_to_user ON notes(to_user);
-CREATE INDEX IF NOT EXISTS idx_notes_created_at ON notes(created_at);
-```
-
-- All user references in your app should use the `id` field from the `users` table (UUID).
-- The `notes` table links notes to users by their UUIDs.
-- The `role` field supports 'student' and 'teacher' roles for role-based access control.
-- Teachers can access the teacher feed and have additional permissions.
+For questions or support, open an issue or contact the maintainer.
