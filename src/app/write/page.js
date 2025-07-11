@@ -1,12 +1,12 @@
 import getUsers from "../api/getUsers"
 import { auth } from "../../auth";
 import { redirect } from "next/navigation";
-import WriteNoteForm from "./WriteNoteForm"
+import WriteNoteForm from "../components/WriteNoteForm"
 
 export default async function WritePage() {
     const session = await auth();
     if (!session?.user?.id) {
-        redirect("/auth/signin");
+        redirect("/auth/signin")
     }
     const users = await getUsers();
     const myId = session.user.id;

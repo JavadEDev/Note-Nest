@@ -1,7 +1,7 @@
 'use client'
 import { useRef, useTransition } from 'react'
 import postNote from '../api/postNote'
-import { ToastEmitter } from '../components/ToastProvider'
+import { ToastEmitter } from './ToastProvider'
 
 export default function WriteNoteForm({ users, myId, myName }) {
     const formRef = useRef(null)

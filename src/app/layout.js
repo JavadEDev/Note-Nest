@@ -39,8 +39,8 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <nav className="navigation">
             <h1 className="navigation-title">
-              <Link href="/" className="navigation-link">
-                NoteNest
+              <Link href="/" className="navigation-logo-link">
+                <img src="/note_nest_logo.webp" alt="NoteNest Logo" className="navigation-logo" />
               </Link>
             </h1>
             <div className="navigation-auth">

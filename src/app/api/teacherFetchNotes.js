@@ -2,13 +2,14 @@
 import { neon } from '@neondatabase/serverless';
 import { auth } from '../../auth';
 import { redirect } from 'next/navigation';
+import { unauthorized } from 'next/navigation'
 
 const sql = neon(process.env.DATABASE_URL);
 
 export default async function teacherFetchNotes(since) {
     const session = await auth();
     if (!session?.user?.id) {
-        redirect("/auth/signin")
+        unauthorized()
     }
     if (session?.user?.role !== "teacher") {
         redirect("/unauthorized");

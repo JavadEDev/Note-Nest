@@ -1,6 +1,6 @@
 'use client';
 
-import { signIn, getSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -61,37 +61,6 @@ export default function SignInPage() {
             }
         } catch (err) {
             console.error('SignIn error:', err);
-            setError('An unexpected error occurred.');
-            ToastEmitter.error('An unexpected error occurred.')
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    const handleCredentialsSignIn = async (e) => {
-        e.preventDefault();
-        setIsLoading(true);
-        setError('');
-
-        try {
-            const result = await signIn('credentials', {
-                email,
-                password,
-                callbackUrl,
-                redirect: false,
-            });
-
-            console.log('Credentials signIn result:', result);
-
-            if (result?.error) {
-                setError(getErrorMessage(result.error));
-                ToastEmitter.error(getErrorMessage(result.error))
-            } else if (result?.ok) {
-                ToastEmitter.success('Signed in successfully!')
-                router.push(callbackUrl);
-            }
-        } catch (err) {
-            console.error('Credentials signIn error:', err);
             setError('An unexpected error occurred.');
             ToastEmitter.error('An unexpected error occurred.')
         } finally {
