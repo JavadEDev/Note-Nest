@@ -10,6 +10,15 @@
   --font-short-stack: 'Short Stack', cursive;
 }
 
+.dark {
+  --background: #1b443f;
+  --foreground: #f3f4f6;
+  --primary: #38b2ac;
+  --secondary: #234e9b;
+  --accent: #81e6d9;
+  --bg-white: #5b5c5e;
+}
+
 body {
   font-family: var(--font-short-stack), Arial, Helvetica, sans-serif;
   background: var(--background);
@@ -30,176 +39,7 @@ body {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
-    --primary: #38b2ac;
-    --secondary: #234e9b;
-    --accent: #81e6d9;
-    --bg-white: #18181b;
   }
-}
-
-.dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --primary: #38b2ac;
-  --secondary: #234e9b;
-  --accent: #81e6d9;
-  --bg-white: #18181b;
-}
-
-body,
-.navigation,
-.profile-section,
-.notes-section,
-.write-container,
-.teacher-note-card,
-.signin-card,
-.unauthorized-content,
-.auth-error-card,
-.notfound-card {
-  transition:
-    background 0.3s,
-    color 0.3s,
-    box-shadow 0.3s;
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-}
-
-.dark .navigation,
-.dark .profile-section,
-.dark .notes-section,
-.dark .write-container,
-.dark .teacher-note-card,
-.dark .signin-card,
-.dark .unauthorized-content,
-.dark .auth-error-card,
-.dark .notfound-card {
-  background: var(--bg-white);
-  color: var(--foreground);
-  border-color: var(--secondary);
-  box-shadow: 0 8px 32px rgba(56, 178, 172, 0.08);
-}
-
-.dark .navigation-title,
-.dark .profile-title,
-.dark .notes-title,
-.dark .teacher-title,
-.dark .notfound-title {
-  color: var(--primary);
-  text-shadow: 2px 2px 0 var(--secondary);
-}
-
-.dark .navigation-link,
-.dark .mainpage-link,
-.dark .signin-link {
-  color: var(--primary);
-}
-
-.dark .navigation-link:hover,
-.dark .mainpage-link:hover,
-.dark .signin-link:hover {
-  color: var(--accent);
-}
-
-.dark .notes-legend,
-.dark .write-legend,
-.dark .teacher-note-badge {
-  background: linear-gradient(135deg, var(--primary), var(--accent));
-  color: #fff;
-}
-
-.dark .notes-table th,
-.dark .notes-table td,
-.dark .profile-info-item,
-.dark .user-badge {
-  background: transparent;
-  color: var(--foreground);
-}
-
-.dark .notes-table th {
-  background: var(--secondary);
-  color: var(--accent);
-}
-
-.dark .notes-table tr:hover td {
-  background-color: rgba(35, 78, 155, 0.12);
-}
-
-.dark .write-select,
-.dark .write-textarea,
-.dark .write-input {
-  background: #23272f;
-  color: var(--foreground);
-  border-color: var(--secondary);
-}
-
-.dark .write-select:focus,
-.dark .write-textarea:focus,
-.dark .write-input:focus {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 2px var(--secondary);
-}
-
-.dark .write-button {
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
-  color: #fff;
-}
-
-.dark .write-button:hover,
-.dark .write-button:focus {
-  background: linear-gradient(90deg, var(--secondary), var(--primary));
-}
-
-.dark .profile-role {
-  background: var(--primary);
-  color: #fff;
-}
-
-.dark .auth-button,
-.dark .auth-button-signin {
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
-  color: #fff;
-}
-
-.dark .auth-button:hover,
-.dark .auth-button:focus {
-  background: linear-gradient(90deg, var(--secondary), var(--primary));
-}
-
-.dark .auth-dropdown,
-.dark .auth-dropdown-item {
-  background: var(--bg-white);
-  color: var(--foreground);
-}
-
-.dark .auth-dropdown-item:hover {
-  background-color: rgba(35, 78, 155, 0.12);
-}
-
-.dark .profile-stat-card {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: #fff;
-}
-
-.dark .notfound-card {
-  background: var(--bg-white);
-  color: var(--foreground);
-}
-
-.dark .notfound-title {
-  color: #7f5af0;
-}
-
-.dark .notfound-home-btn {
-  background: linear-gradient(90deg, #7f5af0, #2cb67d);
-  color: #fff;
-}
-
-.dark .notfound-home-btn:hover,
-.dark .notfound-home-btn:focus {
-  background: linear-gradient(90deg, #2cb67d, #7f5af0);
 }
 
 /* Navigation Styles */
@@ -912,7 +752,7 @@ body {
   padding: 0;
   margin: 2rem auto;
   max-width: 400px;
-  background: #fff;
+  background: var(--bg-white);
   border-radius: 1rem;
   box-shadow: 0 4px 16px rgba(44, 122, 123, 0.08);
   border: 2px solid var(--secondary);
@@ -1599,4 +1439,79 @@ body {
     font-size: 1rem;
     padding: 0.7rem 1.2rem;
   }
+}
+
+.dark .navigation {
+  background: var(--bg-white);
+  border-bottom: 4px solid var(--secondary);
+}
+
+/* Add dark mode for cards and sections */
+.dark .notes-section,
+.dark .profile-section,
+.dark .teacher-note-card,
+.dark .signin-card,
+.dark .unauthorized-content,
+.dark .auth-error-card,
+.dark .notfound-card {
+  background: #23272f;
+  color: var(--foreground);
+  border-color: var(--secondary);
+}
+
+/* Add dark mode for table */
+.dark .notes-table th {
+  background: var(--secondary);
+  color: var(--accent);
+}
+
+.dark .notes-table td {
+  background: #23272f;
+  color: var(--foreground);
+}
+
+/* Add dark mode for input fields */
+.dark .write-input,
+.dark .write-select,
+.dark .write-textarea,
+.dark .whoami-input,
+.dark .teacher-edit-textarea {
+  background: #18181b;
+  color: var(--foreground);
+  border-color: var(--secondary);
+}
+
+/* Add dark mode for buttons */
+.dark .write-button,
+.dark .profile-form-button,
+.dark .auth-button,
+.dark .unauthorized-button,
+.dark .auth-error-button,
+.dark .notfound-home-btn {
+  background: linear-gradient(90deg, var(--secondary), var(--primary));
+  color: #fff;
+}
+
+/* Add dark mode for user badges */
+.dark .user-badge,
+.dark .teacher-note-badge {
+  background: var(--secondary);
+  color: var(--accent);
+}
+
+.darkmode-toggle-btn {
+  margin-left: 0.5rem;
+  padding: 0.5rem 0.5rem;
+  border-radius: 0.5rem;
+  border: 1.5px solid var(--secondary);
+  background: var(--bg-white);
+  color: var(--foreground);
+  font-size: 1.1rem;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.dark .darkmode-toggle-btn {
+  border-color: var(--secondary);
+  background: var(--background);
+  color: var(--foreground);
 }

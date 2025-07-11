@@ -5,6 +5,7 @@ import AnimatedContainer from './components/AnimatedContainer'
 import AuthProvider from './components/AuthProvider'
 import AuthButton from './components/AuthButton'
 import ToastProvider from './components/ToastProvider'
+import DarkModeToggle from './components/DarkModeToggle'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -45,6 +46,7 @@ export default function RootLayout({ children }) {
             </h1>
             <div className="navigation-auth">
               <AuthButton />
+              <DarkModeToggle />
             </div>
           </nav>
           <AnimatedContainer path={path}>{children}</AnimatedContainer>
