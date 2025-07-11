@@ -16,7 +16,7 @@
   --primary: #38b2ac;
   --secondary: #234e9b;
   --accent: #81e6d9;
-  --bg-white: #5b5c5e;
+  --bg-white: #202f4d;
 }
 
 body {
@@ -74,6 +74,19 @@ body {
   width: auto;
   display: inline-block;
   vertical-align: middle;
+}
+
+.navigation-logo-light {
+  display: inline-block;
+}
+.dark .navigation-logo-light {
+  display: none;
+}
+.navigation-logo-dark {
+  display: none;
+}
+.dark .navigation-logo-dark {
+  display: inline-block;
 }
 
 .navigation-auth {

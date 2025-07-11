@@ -41,7 +41,8 @@ export default function RootLayout({ children }) {
           <nav className="navigation">
             <h1 className="navigation-title">
               <Link href="/" className="navigation-logo-link">
-                <img src="/note_nest_logo.webp" alt="NoteNest Logo" className="navigation-logo" />
+                <img src="/note_nest_logo.webp" alt="NoteNest Logo" className="navigation-logo navigation-logo-light" />
+                <img src="/note_nest_logo_dark.webp" alt="NoteNest Logo Dark" className="navigation-logo navigation-logo-dark" />
               </Link>
             </h1>
             <div className="navigation-auth">

@@ -3,8 +3,10 @@ import { useEffect, useState } from 'react'
 
 export default function DarkModeToggle() {
     const [dark, setDark] = useState(false)
+    const [mounted, setMounted] = useState(false)
 
     useEffect(() => {
+        setMounted(true)
         // On mount, check localStorage or system preference
         const saved = localStorage.getItem('theme')
         if (saved) {
@@ -25,6 +27,8 @@ export default function DarkModeToggle() {
             return newDark
         })
     }
+
+    if (!mounted) return null // Prevent hydration mismatch
 
     return (
         <button
